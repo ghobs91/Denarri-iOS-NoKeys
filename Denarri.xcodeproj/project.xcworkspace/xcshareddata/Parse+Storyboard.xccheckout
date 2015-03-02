@@ -10,14 +10,14 @@
 	<string>Parse+Storyboard</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>DE18E869-3A37-4ABC-8789-1E1B2B7056AB</key>
+		<key></key>
 		<string>ssh://github.com/ghobs91/Denarri-iOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Parse+Storyboard.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>DE18E869-3A37-4ABC-8789-1E1B2B7056AB</key>
+		<key></key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>DE18E869-3A37-4ABC-8789-1E1B2B7056AB</string>
+	<string></string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>DE18E869-3A37-4ABC-8789-1E1B2B7056AB</string>
+			<string></string>
 			<key>IDESourceControlWCCName</key>
 			<string>Parse---Storyboard</string>
 		</dict>
