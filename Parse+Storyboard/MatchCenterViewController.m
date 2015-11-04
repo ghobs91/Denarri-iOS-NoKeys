@@ -49,7 +49,7 @@
     
     _matchCenterArray = [[NSArray alloc] init];
     
-    // Refresh button
+    // Refreshing
     UIImageView *refreshImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"refresh.png"]];
     refreshImageView.frame = CGRectMake(280, 30, 30, 30);
     refreshImageView.userInteractionEnabled = YES;
@@ -60,11 +60,9 @@
     
     // Preparing for MC and indicating loading
     self.matchCenterArray = [[NSArray alloc] init];
-    
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
     [self.view addSubview: activityIndicator];
-    
     [activityIndicator startAnimating];
     
     _matchCenterDone = NO;
@@ -135,6 +133,10 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    if (self.didAddNewItem == NO) {
+        NSLog(@"KHARA!");
+    }
+    
     if (self.didAddNewItem == YES) {
         NSLog(@"well then lets refresh the MC");
         
@@ -240,7 +242,20 @@
     MoreButton *moreButton = [MoreButton buttonWithType:UIButtonTypeCustom];
     moreButton.frame = CGRectMake(0, 0, 320, 35);
     moreButton.sectionIndex = section;
-    [moreButton setImage:[UIImage imageNamed:@"downarrow.png"] forState:UIControlStateNormal];
+    
+    if (self.expandedSection == -1){
+        [moreButton setImage:[UIImage imageNamed:@"downarrow.png"] forState:UIControlStateNormal];
+    }
+    else {
+        if (self.expandedSection == section) {
+            [moreButton setImage:[UIImage imageNamed:@"uparrow.png"] forState:UIControlStateNormal];
+        }
+        else {
+            [moreButton setImage:[UIImage imageNamed:@"downarrow.png"] forState:UIControlStateNormal];
+        }
+        
+    }
+    
     [moreButton addTarget:self action:@selector(moreButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:moreButton];
     
@@ -248,10 +263,14 @@
 }
 
 - (void)moreButtonSelected:(MoreButton *)button {
+    
+    // Indicates which section is the expanded one //
+    
+    // If none are expanded, set it as the section that you just tapped to expand
     if (self.expandedSection == -1) {
         self.expandedSection = button.sectionIndex;
     }
-    
+    // If more button is tapped on already expanded section, set expanded section to null, and contract it
     else {
         self.expandedSection = -1;
     }
@@ -295,7 +314,7 @@
 // Cell layout
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //load top 3 data
+    //load top 3 data 
     NSDictionary *currentSectionDictionary = _matchCenterArray[indexPath.section];
     NSArray *top3ArrayForSection = currentSectionDictionary[@"Top 3"];
     
@@ -332,7 +351,7 @@
         }
         
         tableView.separatorColor = [UIColor clearColor];
-
+        
         // title of the item
         cell.textLabel.text = _matchCenterArray[indexPath.section][@"Top 3"][indexPath.row+1][@"Title"];
         cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -344,7 +363,7 @@
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", price, condition];
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.384 green:0.722 blue:0.384 alpha:1];
         
-        // Best Match label, appplied to top result
+        // Best Match label, applied to top result
         if (indexPath.row == 0) {
             cell.bestMatchLabel.text = @"Best Match";
             cell.bestMatchLabel.font = [UIFont systemFontOfSize:12];
@@ -379,14 +398,14 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-        return 65;
+    return 65;
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_matchCenterDone == YES) {
         self.itemURL = _matchCenterArray[indexPath.section][@"Top 3"][indexPath.row+1][@"Item URL"];
+        NSLog(@"The URL IS:'%@", self.itemURL);
         [self performSegueWithIdentifier:@"WebViewSegue" sender:self];
     }
 }

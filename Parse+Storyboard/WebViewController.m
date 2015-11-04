@@ -28,7 +28,7 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"The url dude is: '%@'", _itemURL);
+    NSLog(@"The url in webview is: '%@'", self.itemURL);
     
     // Initialize UIWebView
     self.myWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width,
@@ -58,7 +58,7 @@
     [activityIndicator startAnimating];
     
     // set the url
-    NSURL *url = [NSURL URLWithString:_itemURL];
+    NSURL *url = [NSURL URLWithString:self.itemURL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
@@ -120,11 +120,11 @@
 //                    }
 //                    break;
                 case 0:
-                    NSLog(@"lets share on iMessage");
+                    NSLog(@"Check out this awesome deal on a '%@' I found on the Denarri app: '%@'", _searchTerm, _itemURL);
                     if ([MFMessageComposeViewController canSendText]) {
                         MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
                         [messageController setMessageComposeDelegate:self];
-                        [messageController setBody: [NSString stringWithFormat: @"Check out this awesome deal I found on the Denarri app: '%@'", _itemURL]];
+                        [messageController setBody: [NSString stringWithFormat: @"Check out this deal on a '%@' I found on the Denarri app: '%@'", _searchTerm, _itemURL]];
                         
 //                        [NSString stringWithFormat: @"Check out this awesome deal I found on the Denarri app!: '%@'", _itemURL];
                         [self presentViewController:messageController animated:NO completion:nil];
