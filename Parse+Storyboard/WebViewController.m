@@ -36,21 +36,6 @@
     self.myWebView.delegate = self;
     [self.view addSubview:self.myWebView];
     
-//    // Bottom Tab Bar (with back button)
-//    self.webViewToolBar = [[UIToolbar alloc] init];
-//     CGRect toolBarFrame = CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - 44, [[UIScreen mainScreen] bounds].size.width, 44);
-//    self.webViewToolBar.frame = toolBarFrame;
-//    NSMutableArray *barItems = [[NSMutableArray alloc] init];
-//    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"downarrow.png"]
-//                                                                   style:UIBarButtonItemStyleBordered
-//                                                                  target:self
-//                                                                  action:@selector(webViewBackAction)];
-//    [barItems addObject:backButton];
-//    
-//    [self.webViewToolBar setItems:barItems animated:YES];
-//    [self.view addSubview:self.webViewToolBar];
-    
-    
     // Activity indicator
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
@@ -76,26 +61,13 @@
     
 }
 
-//- (void)webViewDidFinishLoad:(UIWebView *)webView
-//{
-//    // snip ...
-//    _backButton.enabled = (self.myWebView.canGoBack);
-//    //forwardButton.enabled = (self.myWebView.canGoForward);
-//}
-
-//- (void)webViewBackAction:(id)sender {
-//    [self.myWebView goBack];
-//}
-
-
-
 - (IBAction)webViewDone:(id)sender {
-    NSLog(@"YALA KHALAS");
+    NSLog(@"Done loading!");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)shareButtonAction:(id)sender {
-    NSLog(@"WE GON SHARE");
+    NSLog(@"WE GON SHARE THIS ITEM");
     
     UIActionSheet *popup = [[UIActionSheet alloc] initWithTitle:@"Select Sharing option:" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                             @"Share via iMessage",
@@ -109,16 +81,6 @@
     switch (popup.tag) {
         case 1: {
             switch (buttonIndex) {
-//                case 0:
-//                    NSLog(@"lets share on email");
-//                    if ([MFMailComposeViewController canSendMail]) {
-//                        MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
-//                        [mailController setMailComposeDelegate:self];
-//                        [mailController setSubject:@"Item I found On Denarri"];
-//                        [mailController setMessageBody:(@"Check out this awesome deal I found on the Denarri app!:") isHTML:NO];
-//                        [self presentViewController:mailController animated:YES completion:nil];
-//                    }
-//                    break;
                 case 0:
                     NSLog(@"Check out this awesome deal on a '%@' I found on the Denarri app: '%@'", _searchTerm, _itemURL);
                     if ([MFMessageComposeViewController canSendText]) {
@@ -126,7 +88,6 @@
                         [messageController setMessageComposeDelegate:self];
                         [messageController setBody: [NSString stringWithFormat: @"Check out this deal on a '%@' I found on the Denarri app: '%@'", _searchTerm, _itemURL]];
                         
-//                        [NSString stringWithFormat: @"Check out this awesome deal I found on the Denarri app!: '%@'", _itemURL];
                         [self presentViewController:messageController animated:NO completion:nil];
                     }
                     break;

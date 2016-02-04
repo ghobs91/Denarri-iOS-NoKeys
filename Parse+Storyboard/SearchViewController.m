@@ -6,9 +6,6 @@
 //
 
 #import "SearchViewController.h"
-#import "MatchCenterViewController.h"
-#import "SearchCategoryChooserViewController.h"
-#import "UserCategoryChooserViewController.h"
 
 @interface SearchViewController ()
 
@@ -100,6 +97,7 @@
 }
 
 - (IBAction)priorityValuechanged:(id)sender {
+    //Where user sets priority, which in turn sets location pref
     if(_itemPrioritySegment.selectedSegmentIndex == 0)
     {
         self.itemPriority = @"Low";
@@ -111,8 +109,8 @@
         self.itemLocation = @"US";
     }
     
-    NSLog(@"prioritay:'%@'", self.itemPriority);
-    NSLog(@"locationtayyyyy:'%@'", self.itemLocation);
+    NSLog(@"priority:'%@'", self.itemPriority);
+    NSLog(@"location:'%@'", self.itemLocation);
 }
 
 
@@ -128,6 +126,7 @@
         
         [activityIndicator startAnimating];
         
+        // Checks to see what product categories match on eBay's end, and compares to user's saved prefs
         [PFCloud callFunctionInBackground:@"eBayCategorySearch"
                            withParameters:@{@"item": self.itemSearch.text}
                                     block:^(NSDictionary *result, NSError *error) {

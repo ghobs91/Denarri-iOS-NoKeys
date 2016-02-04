@@ -104,25 +104,11 @@
     }
 }
 
-//- (void)locationValueChanged:(UISegmentedControl *)locationSegmentedControl {
-//    
-//    if(locationSegmentedControl.selectedSegmentIndex == 0)
-//    {
-//        self.itemLocation = @"US";
-//    }
-//    else if(locationSegmentedControl.selectedSegmentIndex == 1)
-//    {
-//        self.itemLocation = @"WorldWide";
-//    }
-//}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 //add all the info to users respective new category object
 - (IBAction)submitButton:(id)sender
@@ -154,8 +140,6 @@
                                             
                                             UINavigationController *navVC = (UINavigationController *)[self.tabBarController viewControllers][1];
                                             MatchCenterViewController *matchCenter = (MatchCenterViewController *)navVC.topViewController;
-                                            
-//                                            UIViewController *toViewController = [self.tabBarController viewControllers][1];
                                             
                                             if ([matchCenter isKindOfClass:[MatchCenterViewController class]]) {
                                                 MatchCenterViewController *matchViewController = (MatchCenterViewController *)matchCenter;

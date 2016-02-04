@@ -18,7 +18,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // ****************************************************************************
     // Parse initialization
-    // [Parse setApplicationId:@"APPLICATION_ID" clientKey:@"CLIENT_KEY"];
     [Parse setApplicationId:@"APP ID GOES HERE" clientKey:@"CLIENT KEY GOES HERE"];
     // ****************************************************************************
 

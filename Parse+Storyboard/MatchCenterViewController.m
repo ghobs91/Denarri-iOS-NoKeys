@@ -6,10 +6,6 @@
 //
 
 #import "MatchCenterViewController.h"
-#import <UIKit/UIKit.h>
-#import "MatchCenterCell.h"
-#import "EmptyTableViewCell.h"
-
 
 @interface MatchCenterViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -47,7 +43,6 @@
     _matchCenter.dataSource = self;
     _matchCenter.delegate = self;
     [self.view addSubview:self.matchCenter];
-    
     _matchCenterData = [[NSArray alloc] init];
     
     
@@ -105,14 +100,6 @@
     self.navigationItem.titleView = label;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonAction:)];
-
-//    // Refreshing
-//    UIImageView *refreshImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"refresh.png"]];
-//    refreshImageView.frame = CGRectMake(280, 30, 30, 30);
-//    refreshImageView.userInteractionEnabled = YES;
-//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(refreshPressed:)];
-//    [refreshImageView addGestureRecognizer:tapGesture];
-//    [self.view addSubview:refreshImageView];
 }
 
 - (IBAction)editButtonAction:(id)sender {
@@ -184,6 +171,7 @@
         NSString *sectionName = [[[[_matchCenterData  objectAtIndex:indexPath.section] objectForKey:@"Top 3"] objectAtIndex:0]objectForKey:@"Search Term"];
         
         _matchCenter.userInteractionEnabled = NO;
+        
         // Run delete function with respective section header as parameter
         [PFCloud callFunctionInBackground:@"deleteFromMatchCenter"
                            withParameters: @{@"searchTerm": sectionName,}
@@ -308,10 +296,9 @@
 // Cell layout
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //load top 3 data
+    //load top items
     NSDictionary *currentSectionDictionary = _matchCenterData[indexPath.section];
     NSArray *top3ArrayForSection = currentSectionDictionary[@"Top 3"];
-    
     
     // if no results for that item
     if (top3ArrayForSection.count-1 < 1) {
@@ -417,6 +404,7 @@
 {
     _searchTerm = [[[[_matchCenterData  objectAtIndex:indexPath.section] objectForKey:@"Top 3"] objectAtIndex:0]objectForKey:@"Search Term"];
     NSLog(@"The search term that was just selected: %@", _searchTerm);
+    
     //Set _sectionSelected variable to the section index
     self.sectionSelected = indexPath.section;
     self.sectionSelectedSearchTerm = _searchTerm;
@@ -438,7 +426,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"MCExpandedSegue"]){
-        // Opens item in browser
+        // Segues to expanded view of that item's results
         MCExpandedViewController *controller = (MCExpandedViewController *) segue.destinationViewController;
         controller.sectionSelected = self.sectionSelected;
         controller.sectionSelectedSearchTerm = self.sectionSelectedSearchTerm;

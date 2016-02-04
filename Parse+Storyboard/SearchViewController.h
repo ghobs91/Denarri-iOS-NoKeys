@@ -11,6 +11,9 @@
 #import <Parse/PFCloud.h>
 #import "CriteriaViewController.h"
 #import "WSCoachMarksView.h"
+#import "MatchCenterViewController.h"
+#import "SearchCategoryChooserViewController.h"
+#import "UserCategoryChooserViewController.h"
 
 
 @interface SearchViewController : UIViewController
