@@ -8,7 +8,10 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "DefaultSettingsViewController.h"
-
+#import "Branch.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "StoreKit/StoreKit.h"
 
 @implementation AppDelegate
 
@@ -16,8 +19,15 @@
     // ****************************************************************************
     // Parse initialization
     // [Parse setApplicationId:@"APPLICATION_ID" clientKey:@"CLIENT_KEY"];
-    [Parse setApplicationId:@"APPLICATION ID GOES HERE" clientKey:@"CLIENT KEY GOES HERE"];
+    [Parse setApplicationId:@"APP ID GOES HERE" clientKey:@"CLIENT KEY GOES HERE"];
     // ****************************************************************************
+
+    // Track opens
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    // FB Login
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
     
     // Override point for customization after application launch.
     
@@ -50,22 +60,20 @@
         }
     }
     
-    
-    
     // Navbar to blue
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:40/255.0f green:167/255.0f blue:255/255.0f alpha:1.0f]];
     
     return YES;
 }
 
-//- (BOOL)application:(UIApplication *)application
-//            openURL:(NSURL *)url
-//  sourceApplication:(NSString *)sourceApplication
-//         annotation:(id)annotation {
-//    return [FBAppCall handleOpenURL:url
-//                  sourceApplication:sourceApplication
-//                        withSession:[PFFacebookUtils session]];
-//}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
+
+}
 
 
 
@@ -103,6 +111,10 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    
+    //Facebook login stuff
+    [FBSDKAppEvents activateApp];
+    
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
     // Start updating locations when the app returns to the foreground.
@@ -116,9 +128,6 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
         currentInstallation.badge = 0;
         [currentInstallation saveEventually];
     }
-    
-    
-    //[FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
     
 }
 
@@ -140,5 +149,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
     
     //[[PFFacebookUtils session] close];
 }
+
+
 
 @end

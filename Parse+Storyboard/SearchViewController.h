@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
 #import <Parse/PFCloud.h>
 #import "CriteriaViewController.h"
